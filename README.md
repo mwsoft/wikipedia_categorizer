@@ -25,7 +25,27 @@ IndexCreaterを呼び出して、Luceneのインデックスを生成する。�
 
     ./activator 'run data/example_file.txt'
 
+実行すると、以下の3つの情報が表示されます。
+
+	query : 指定された文書から生成されたクエリ
+
+	wikipedia categories : クエリから取得した、Wikipedia側が持つカテゴリ
+
+	my categories : Wikipediaのカテゴリから変換した独自カテゴリ
+
+## カテゴリの拡張 ##
+
+Wikipediaの持つカテゴリと、こちらが付加したいカテゴリをマッピングする形で結果を算出しています。下記ファイルを編集することで、カテゴリのマッピングを変更することができます。
+
+	data/category_map.txt
+
+上記ファイルは編集している途中に力尽きたので、中途半端な内容になっています。【wikipedia categories】では正しい結果が推測されているのに、【my categories】には出ない場合は、category_map.txtに記述がないせいです。記述を追加して再度 run すると、反映された結果が表示されます。
+
+## 既知の問題点 ##
+
+一部のサイトでは文字化けが発生する為、カテゴリの推測に失敗します。JSoupのconnectメソッド任せなせいです。UTF-8形式のファイルとして読み込ませるか、MltSearcherクラスにjava.io.Readerを渡せるので、ちゃんとした文字コード判定をしてReaderを渡す処理を書けば改善します。
+
 ## ライセンス ##
 
-MIT Licens
+	MIT Licens
 
